@@ -50,13 +50,9 @@ const updateDeviceList = () => {
 
         })
 
-        if(!currentInput.value || !inputDevices.value.find(item => item.id === currentInput.value)) {
-            currentInput.value = inputDevices.value[0].id;
-        }
-
-        if(!currentOutput.value) {
-            currentOutput.value = outputDevices.value[0].id;
-        }
+        currentInput.value = inputDevices.value[0].id;
+        
+        currentOutput.value = outputDevices.value[0].id;
 
         updateAudioIO();
 
