@@ -20,12 +20,57 @@ const audioSrc = ref("");
 let mediaRecorder = null;
 let chunks = [];
 
+const inputDevices = ref([]);
+const currentInput = ref(null);
+const outputDevices = ref([]);
+const currentOutput = ref(null);
+
+const updateAudioIO = () => {
+    [...document.getElementsByTagName('audio')].forEach(item => item.setSinkId(currentOutput.value))
+}
+
+
+const updateDeviceList = () => {
+    navigator.mediaDevices.enumerateDevices().then(devices => {
+        inputDevices.value.length = 0;
+        outputDevices.value.length = 0;
+        devices.forEach(device => {
+
+            const info = {
+                name: device.label,
+                id: device.deviceId
+            }
+
+            if(device.kind === 'audioinput') {
+                inputDevices.value.push(info);
+            }
+            else if (device.kind === 'audiooutput') {
+                outputDevices.value.push(info);
+            }
+
+        })
+
+        if(!currentInput.value) {
+            currentInput.value = inputDevices.value[0].id;
+        }
+
+        if(!currentOutput.value) {
+            currentOutput.value = outputDevices.value[0].id;
+        }
+
+        updateAudioIO();
+
+    })
+}
+
 const enable = () => {
     if(access.value === ACCESS_MODES.ASK) {
         navigator.mediaDevices.getUserMedia({
             audio: true
         })
             .then(function(stream) {
+                navigator.mediaDevices.addEventListener('devicechange', updateDeviceList);
+                updateDeviceList();
                 access.value = ACCESS_MODES.ENABLED;
                 const audioContext = new AudioContext();
                 const analyser = audioContext.createAnalyser();
@@ -59,6 +104,7 @@ const enable = () => {
                 };
             })
             .catch(function(err) {
+                console.error(err);
                 access.value = ACCESS_MODES.BLOCKED;
             });
     }
@@ -85,17 +131,35 @@ const deleteAudio = () => {
     <div class="prose mx-auto mt-5">
         <h1>Sound check</h1>
         <p>No ads, no data collection, no nonsense.</p>
-        <h2>Microphone</h2>
+
+
+
+
         <div v-if="access === ACCESS_MODES.ENABLED">
+            <h2>Speakers</h2>
+
+            <select v-model="currentOutput" @change="updateAudioIO">
+                <option v-for="output of outputDevices" :value="output.id">{{output.name}}</option>
+            </select>
+
+            <p>If you hear classical music, your speakers work!</p>
+            <audio id="headphones" controls src="/audio/test.mp3"></audio>
+
+            <h2>Microphone</h2>
+
+<!--            <select v-model="currentInput" @change="updateAudioIO">-->
+<!--                <option v-for="input of inputDevices" :value="input.id">{{input.name}}</option>-->
+<!--            </select>-->
+
             <div>
                 Microphone level: <progress max="100" :value="level"></progress>
             </div>
             <div>
                 <button v-if="!recording" @click="record">Record</button>
                 <button v-if="recording" @click="stop">Stop</button>
-                <span v-if="!recording && audioSrc">
+                <span v-show="!recording && audioSrc">
                     <button v-if="audioSrc" @click="deleteAudio">Delete</button>
-                <audio class="inline-block" v-if="audioSrc" controls :src="audioSrc"></audio>
+                <audio class="inline-block" v-show="audioSrc" controls :src="audioSrc"></audio>
                 </span>
 
             </div>
@@ -108,9 +172,7 @@ const deleteAudio = () => {
             Microphone access is blocked.
         </div>
 
-        <h2>Speakers</h2>
-        <p>If you hear classical music, your speakers work!</p>
-        <audio controls src="/audio/test.mp3"></audio>
+
     </div>
 
 
@@ -120,5 +182,9 @@ const deleteAudio = () => {
 <style scoped>
 button {
     @apply border p-2 hover:bg-gray-50 transition-colors mr-2;
+}
+
+select {
+    @apply p-2;
 }
 </style>
