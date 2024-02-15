@@ -50,7 +50,7 @@ const updateDeviceList = () => {
 
         })
 
-        if(!currentInput.value) {
+        if(!currentInput.value || !inputDevices.value.find(item => item.id === currentInput.value)) {
             currentInput.value = inputDevices.value[0].id;
         }
 
