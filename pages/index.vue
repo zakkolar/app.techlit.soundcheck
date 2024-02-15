@@ -8,6 +8,10 @@ const ACCESS_MODES = Object.freeze({
     BLOCKED: 'BLOCKED'
 })
 
+useHead({
+    title: 'Sound Check'
+});
+
 const access = ref(ACCESS_MODES.ASK);
 const recording = ref(false);
 
