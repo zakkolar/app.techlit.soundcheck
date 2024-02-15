@@ -147,18 +147,18 @@ const deleteAudio = () => {
         <div v-if="access === ACCESS_MODES.ENABLED">
             <h2>Speakers</h2>
 
-            <select v-model="currentOutput" @change="updateAudioIO">
-                <option v-for="output of outputDevices" :value="output.id">{{output.name}}</option>
-            </select>
+<!--            <select v-model="currentOutput" @change="updateAudioIO">-->
+<!--                <option v-for="output of outputDevices" :value="output.id">{{output.name}}</option>-->
+<!--            </select>-->
 
             <p>If you hear classical music, your speakers work!</p>
             <audio id="headphones" controls src="/audio/test.mp3"></audio>
 
             <h2>Microphone</h2>
 
-            <select v-model="currentInput" @change="updateAudioIO">
-                <option v-for="input of inputDevices" :value="input.id">{{input.name}}</option>
-            </select>
+<!--            <select v-model="currentInput" @change="updateAudioIO">-->
+<!--                <option v-for="input of inputDevices" :value="input.id">{{input.name}}</option>-->
+<!--            </select>-->
 
             <div>
                 Microphone level: <progress max="100" :value="level"></progress>
