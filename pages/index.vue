@@ -51,23 +51,36 @@ const updateDeviceList = () => {
         })
 
         currentInput.value = inputDevices.value[0].id;
-        
+
         currentOutput.value = outputDevices.value[0].id;
 
         updateAudioIO();
+        enable();
 
     })
 }
 
-const enable = () => {
-    if(access.value === ACCESS_MODES.ASK) {
+const enable = (initial = false) => {
+
+    const constraints = {
+        audio: true
+    };
+
+    if(currentInput.value) {
+        constraints.audio = {
+            exact: currentInput.value
+        }
+    }
+
         navigator.mediaDevices.getUserMedia({
             audio: true
         })
             .then(function(stream) {
-                navigator.mediaDevices.addEventListener('devicechange', updateDeviceList);
-                updateDeviceList();
-                access.value = ACCESS_MODES.ENABLED;
+                if(initial) {
+                    navigator.mediaDevices.addEventListener('devicechange', updateDeviceList);
+                    updateDeviceList();
+                    access.value = ACCESS_MODES.ENABLED;
+                }
                 const audioContext = new AudioContext();
                 const analyser = audioContext.createAnalyser();
                 const microphone = audioContext.createMediaStreamSource(stream);
@@ -103,7 +116,7 @@ const enable = () => {
                 console.error(err);
                 access.value = ACCESS_MODES.BLOCKED;
             });
-    }
+
 
 }
 
@@ -143,9 +156,9 @@ const deleteAudio = () => {
 
             <h2>Microphone</h2>
 
-<!--            <select v-model="currentInput" @change="updateAudioIO">-->
-<!--                <option v-for="input of inputDevices" :value="input.id">{{input.name}}</option>-->
-<!--            </select>-->
+            <select v-model="currentInput" @change="updateAudioIO">
+                <option v-for="input of inputDevices" :value="input.id">{{input.name}}</option>
+            </select>
 
             <div>
                 Microphone level: <progress max="100" :value="level"></progress>
@@ -162,7 +175,7 @@ const deleteAudio = () => {
 
         </div>
         <div v-else-if="access === ACCESS_MODES.ASK">
-            <button @click="enable">Enable microphone</button>
+            <button @click="enable(true)">Enable microphone</button>
         </div>
         <div v-else>
             Microphone access is blocked.
