@@ -1,6 +1,8 @@
-# Nuxt 3 Minimal Starter
+# Simple Microphone and Speaker Check
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+This is a super simple web app to test speakers and microphones. Similar to other "free" options, but without the ads/data collection.
+
+All the exciting stuff can be found in [pages/index.vue](pages/index.vue).
 
 ## Setup
 
