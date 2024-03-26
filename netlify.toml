@@ -1,0 +1,5 @@
+[[redirects]]
+    from = "https://soundcheck.techlit.app"
+    to = "https://soundcheck.techlit.tools"
+    status = 301
+    force = true
