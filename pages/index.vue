@@ -141,10 +141,6 @@ const deleteAudio = () => {
         <h1>Sound check</h1>
         <p>No ads, no data collection, no nonsense.</p>
 
-
-
-
-        <div v-if="access === ACCESS_MODES.ENABLED">
             <h2>Speakers</h2>
 
 <!--            <select v-model="currentOutput" @change="updateAudioIO">-->
@@ -154,11 +150,8 @@ const deleteAudio = () => {
             <p>If you hear classical music, your speakers work!</p>
             <audio id="headphones" controls src="/audio/test.mp3"></audio>
 
+        <div v-if="access === ACCESS_MODES.ENABLED">
             <h2>Microphone</h2>
-
-<!--            <select v-model="currentInput" @change="updateAudioIO">-->
-<!--                <option v-for="input of inputDevices" :value="input.id">{{input.name}}</option>-->
-<!--            </select>-->
 
             <div>
                 Microphone level: <progress max="100" :value="level"></progress>
@@ -170,12 +163,10 @@ const deleteAudio = () => {
                     <button v-if="audioSrc" @click="deleteAudio">Delete</button>
                 <audio class="inline-block" v-show="audioSrc" controls :src="audioSrc"></audio>
                 </span>
-
             </div>
-
         </div>
-        <div v-else-if="access === ACCESS_MODES.ASK">
-            <button @click="enable(true)">Enable microphone</button>
+        <div class="mt-5" v-else-if="access === ACCESS_MODES.ASK">
+            <button @click="enable(true)">Enable microphone to test</button>
         </div>
         <div v-else>
             Microphone access is blocked.
