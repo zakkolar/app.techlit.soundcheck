@@ -196,8 +196,8 @@ const segmentTone = (index) => {
                                     <span
                                         v-for="(seg, i) in meterSegments"
                                         :key="i"
-                                        class="h-5 flex-1 border border-ink/15 bg-ink/5"
-                                        :class="i < filledSegments ? segmentTone(i) : ''"
+                                        class="h-5 flex-1 border"
+                                        :class="i < filledSegments ? segmentTone(i) : 'border-ink/15 bg-ink/5'"
                                     ></span>
                                 </div>
                             </div>
