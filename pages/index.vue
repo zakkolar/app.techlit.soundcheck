@@ -155,23 +155,26 @@ const segmentTone = (index) => {
         <span class="reg bottom-5 right-5" aria-hidden="true">+</span>
 
         <div class="mx-auto max-w-2xl px-6 py-14 sm:py-20">
-            <header class="mb-10 border-b-2 border-ink pb-5">
+            <header class="mb-10 border-b-2 border-hairline pb-5">
                 <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2">
-                    <h1 class="font-display text-5xl font-extrabold uppercase tracking-tight sm:text-6xl">
-                        Sound Check
-                    </h1>
+                    <div class="flex items-center gap-3">
+                      <WaveformMark class="shrink-0 text-grape" />
+                        <h1 class="font-display text-5xl font-extrabold uppercase tracking-tight sm:text-6xl">
+                            Sound Check
+                        </h1>
+
+                    </div>
                     <p class="font-mono text-[11px] uppercase tracking-widest text-ink/60">
                         No ads &middot; No data collection
                     </p>
                 </div>
-                <p class="mt-3 text-ink/80">Test your speakers and microphone.</p>
             </header>
 
             <main class="space-y-8">
                 <section class="panel">
                     <h2 class="panel-label">Output &mdash; Speakers</h2>
                     <div class="panel-body">
-                        <p>If you hear classical music, your speakers work.</p>
+                        <p>If your speakers work, you should hear classical music.</p>
                         <RetroAudioPlayer class="mt-3" src="/audio/test.mp3" />
                     </div>
                 </section>
