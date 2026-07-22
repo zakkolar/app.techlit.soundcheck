@@ -4,6 +4,8 @@ This is a super simple web app to test speakers and microphones. Similar to othe
 
 All the exciting stuff can be found in [pages/index.vue](pages/index.vue).
 
+**Generative AI disclosure**: I coded the main functionality by hand. I used Claude Code to help refine the visual design and implement the `RetroAudioPlayer` component.
+
 ## Setup
 
 Make sure to install the dependencies:
