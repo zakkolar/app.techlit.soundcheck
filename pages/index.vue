@@ -9,7 +9,17 @@ const ACCESS_MODES = Object.freeze({
 })
 
 useHead({
-    title: 'Sound Check'
+    title: 'Sound Check',
+    meta: [
+        {property: 'og:type', content: 'website'},
+        {property: 'og:url', content: 'https://soundcheck.techlit.tools'},
+        {property: 'og:title', content: 'Sound Check'},
+        {property: 'og:image', content: 'https://soundcheck.techlit.tools/og-image.png'},
+        {property: 'og:image:width', content: '1200'},
+        {property: 'og:image:height', content: '600'},
+        {name: 'twitter:card', content: 'summary_large_image'},
+        {name: 'twitter:image', content: 'https://soundcheck.techlit.tools/og-image.png'},
+    ]
 });
 
 const access = ref(ACCESS_MODES.ASK);
